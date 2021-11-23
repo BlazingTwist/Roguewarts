@@ -146,6 +146,7 @@
     <None Include="Properties\Resources\TelemanticBlink.bin" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\UglyGuy_64x64.png" />
     <Content Include="Libraries\0Harmony.dll" />
     <Content Include="Libraries\Assembly-CSharp.dll" />
     <Content Include="Libraries\AstarPathfindingProject.dll" />
