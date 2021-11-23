@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Roguewarts.Patches
 {
+	[HarmonyPatch(declaringType: typeof(LoadLevel))]
 	class P_LoadLevel
 	{
 		private static readonly ManualLogSource logger = RWLogger.GetLogger();
@@ -19,7 +20,7 @@ namespace Roguewarts.Patches
 		/// </summary>
 		/// <param name="__instance"></param>
 		[HarmonyPostfix, HarmonyPatch(methodName: "SetupMore5_2", new Type[] { })]
-		public static void SetupMore5_2_Postfix(LoadLevel __instance)
+		public static void SetupMore5_2_Postfix()
 		{
 			ChronomanticDilation.baseTimeScale = GameController.gameController.selectedTimeScale;
 		}
