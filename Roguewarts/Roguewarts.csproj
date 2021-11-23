@@ -108,6 +108,9 @@
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="Localization\TraitsLocalization.cs" />
     <Compile Include="NameManager.cs" />
+    <Compile Include="Patches\P_LoadLevel.cs" />
+    <Compile Include="Patches\P_PlayfieldObject.cs" />
+    <Compile Include="Patches\P_StatusEffects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\ModInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -132,6 +135,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Documentation\0.1 Scratchpad" />
     <None Include="packages.config" />
     <None Include="Properties\Resources\ChronomanticDilation.bin" />
     <None Include="Properties\Resources\CryomanticBolt.bin" />
@@ -142,6 +146,26 @@
     <None Include="Properties\Resources\TelemanticBlink.bin" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Libraries\0Harmony.dll" />
+    <Content Include="Libraries\Assembly-CSharp.dll" />
+    <Content Include="Libraries\AstarPathfindingProject.dll" />
+    <Content Include="Libraries\BepInEx.dll" />
+    <Content Include="Libraries\BTHarmonyUtils.dll" />
+    <Content Include="Libraries\BTHarmonyUtils.xml" />
+    <Content Include="Libraries\com.unity.multiplayer-hlapi.Runtime.dll" />
+    <Content Include="Libraries\netstandard.dll" />
+    <Content Include="Libraries\RogueLibsCore.dll" />
+    <Content Include="Libraries\RogueLibsCore.xml" />
+    <Content Include="Libraries\UnityEngine.AnimationModule.dll" />
+    <Content Include="Libraries\UnityEngine.CoreModule.dll" />
+    <Content Include="Libraries\UnityEngine.dll" />
+    <Content Include="Libraries\UnityEngine.InputLegacyModule.dll" />
+    <Content Include="Libraries\UnityEngine.Networking.dll" />
+    <Content Include="Libraries\UnityEngine.ParticleSystemModule.dll" />
+    <Content Include="Libraries\UnityEngine.Physics2DModule.dll" />
+    <Content Include="Libraries\UnityEngine.TextRenderingModule.dll" />
+    <Content Include="Libraries\UnityEngine.UI.dll" />
+    <Content Include="Libraries\UnityEngine.UIModule.dll" />
     <Content Include="Properties\Resources\ChronomanticDilation.png" />
     <Content Include="Properties\Resources\CryomanticBolt.png" />
     <Content Include="Properties\Resources\ElectromanticDischarge.png" />
