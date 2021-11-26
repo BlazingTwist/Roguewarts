@@ -1,11 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using Google2u;
+using JetBrains.Annotations;
 using RogueLibsCore;
 using Roguewarts.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Roguewarts.Traits.ChronomanticDilation
 {
@@ -36,5 +32,19 @@ namespace Roguewarts.Traits.ChronomanticDilation
 		public override void OnAdded() { }
 
 		public override void OnRemoved() { }
+
+		public static int GetLuckMultiplier(string luckType, Agent agent)
+		{
+			if (agent.HasTrait<RATS_1>()
+					&& (luckType == "CritChance"
+							|| luckType == nameof(StatusEffectNameDB.rowIds.ChanceToSlowEnemies)
+							|| luckType == nameof(StatusEffectNameDB.rowIds.ChanceAttacksDoZeroDamage)
+							|| luckType == nameof(StatusEffectNameDB.rowIds.ChanceToKnockWeapons)
+							|| luckType == "GunAim"))
+			{
+				return 1;
+			}
+			return 0;
+		}
 	}
 }

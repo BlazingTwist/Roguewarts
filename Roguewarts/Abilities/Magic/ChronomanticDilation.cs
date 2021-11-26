@@ -2,9 +2,8 @@
 using RogueLibsCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace Roguewarts.Abilities.Magic
 {
@@ -16,7 +15,7 @@ namespace Roguewarts.Abilities.Magic
 		public static float baseTimeScale;
 
 		#region Main
-		[RLSetup]
+		[RLSetup, UsedImplicitly]
 		public static void Setup()
 		{
 			RogueLibs.CreateCustomAbility<ChronomanticDilation>()
@@ -223,6 +222,12 @@ namespace Roguewarts.Abilities.Magic
 		}
 		#endregion
 		#region Mechanics
+		public static int GetLuckMultiplier(Agent agent)
+		{
+			return agent.specialAbility == cSpecialAbility.ChronomanticDilation && MSA_CD_IsCast(agent)
+					? 2
+					: 1;
+		}
 		public static int MSA_CD_RollManaCost(Agent agent)
 		{
 			int manaCost = 15;

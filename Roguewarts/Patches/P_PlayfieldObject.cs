@@ -1,43 +1,65 @@
-﻿using RogueLibsCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Reflection.Emit;
+using BepInEx.Logging;
+using BTHarmonyUtils.TranspilerUtils;
 using Roguewarts.Abilities.Magic;
 using Roguewarts.Traits.ChronomanticDilation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HarmonyLib;
-using UnityEngine;
+using JetBrains.Annotations;
 
 namespace Roguewarts.Patches
 {
 	[HarmonyPatch(declaringType: typeof(PlayfieldObject))]
-	class P_PlayfieldObject
+	public static class P_PlayfieldObject
 	{
-		[HarmonyPostfix, HarmonyPatch(methodName: nameof(PlayfieldObject.DetermineLuck), new[] { typeof(int), typeof(string), typeof(bool) })]
-		public static void PlayfieldObject_DetermineLuck(int originalLuck, string luckType, bool cancelStatusEffects, PlayfieldObject __instance, ref int __result)
+		private static readonly ManualLogSource logger = RWLogger.GetLogger();
+
+		[UsedImplicitly]
+		private static int ApplyLuckBonus(int baseBonus, string luckType, PlayfieldObject playfieldObject)
 		{
-			Agent agent = __instance.playfieldObjectAgent;
+			Agent agent = playfieldObject.playfieldObjectAgent;
+			int ratsMultiplier = RATS_1.GetLuckMultiplier(luckType, agent) + RATS_2.GetLuckMultiplier(luckType, agent);
+			int cdMultiplier = ChronomanticDilation.GetLuckMultiplier(agent);
+			return baseBonus * ratsMultiplier * cdMultiplier;
+		}
+		
+		[HarmonyTranspiler, HarmonyPatch(methodName: nameof(PlayfieldObject.DetermineLuck), argumentTypes: new[] { typeof(int), typeof(string), typeof(bool) })]
+		private static IEnumerable<CodeInstruction> DetermineLuck_Transpiler(IEnumerable<CodeInstruction> codeInstructions)
+		{
+			List<CodeInstruction> instructions = codeInstructions.ToList();
 
-			if (agent.HasTrait<RATS_1>() || agent.HasTrait<RATS_2>())
-			{
-				int bonus =
-					luckType == "CritChance" ? 3 :
-					luckType == vTrait.UnCrits ||
-					luckType == vTrait.Kneecapper ? 4 :
-					luckType == vTrait.Butterfingerer ||
-					luckType == "GunAim" ? 5 :
-					0;
+			MethodInfo method_applyLuckBonus = SymbolExtensions.GetMethodInfo(() => ApplyLuckBonus(0, null, null));
 
-				if (agent.HasTrait<RATS_2>())
-					bonus *= 2;
-
-				if (agent.isPlayer != 0 && agent.specialAbility == cSpecialAbility.ChronomanticDilation)
-					if (ChronomanticDilation.MSA_CD_IsCast(agent))
-						bonus *= 2;
-
-				__result = Mathf.Clamp(__result + bonus, 0, 100);
-			}
+			CodeReplacementPatch luckBonusPatch = new CodeReplacementPatch(
+					expectedMatches: 19,
+					prefixInstructionSequence: new List<CodeInstruction>
+					{
+							new CodeInstruction(OpCodes.Ldc_R4),
+							new CodeInstruction(OpCodes.Stloc_S, 1),
+							new CodeInstruction(OpCodes.Ldc_R4),
+							new CodeInstruction(OpCodes.Stloc_S, 2),
+							new CodeInstruction(OpCodes.Ldc_R4),
+							new CodeInstruction(OpCodes.Stloc_S, 3),
+							new CodeInstruction(OpCodes.Ldc_R4),
+							new CodeInstruction(OpCodes.Stloc_S, 4),
+							new CodeInstruction(OpCodes.Ldc_R4),
+							new CodeInstruction(OpCodes.Stloc_S, 5),
+					},
+					insertInstructionSequence: new List<CodeInstruction>
+					{
+							new CodeInstruction(OpCodes.Ldloc_S, 5), // num6
+							new CodeInstruction(OpCodes.Ldarg_2), // num6, luckType
+							new CodeInstruction(OpCodes.Ldarg_0), // num6, luckType, playFieldObject
+							new CodeInstruction(OpCodes.Call, method_applyLuckBonus), // luckBonus
+							new CodeInstruction(OpCodes.Ldloc_0), // luckBonus, num
+							new CodeInstruction(OpCodes.Add), // summed
+							new CodeInstruction(OpCodes.Stloc_0)
+					}
+			);
+			luckBonusPatch.ApplySafe(instructions, logger);
+			return instructions;
 		}
 	}
 }
