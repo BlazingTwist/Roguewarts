@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,14 +14,18 @@ namespace Roguewarts.Localization
 		private static LocalizationManager _instance;
 
 		public AbilityLocalization AbilityLocalization { get; }
-		public TraitsLocalization TraitsLocalization { get; }
+		public TraitLocalization TraitsLocalization { get; }
 
 		private LocalizationManager()
 		{
 			IDeserializer deserializer = new DeserializerBuilder().Build();
-			// TODO figure out path for localizationFile.
-			AbilityLocalization = deserializer.Deserialize<AbilityLocalization>("");
-			TraitsLocalization = deserializer.Deserialize<TraitsLocalization>("");
+			string path = "BepInEx/config/Roguewarts_Traits.yaml";
+
+			using (StreamReader reader = new StreamReader(path))
+			{
+				AbilityLocalization = deserializer.Deserialize<AbilityLocalization>(reader);
+				TraitsLocalization = deserializer.Deserialize<TraitLocalization>(reader);
+			}
 		}
 	}
 }

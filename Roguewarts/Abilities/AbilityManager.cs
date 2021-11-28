@@ -23,7 +23,7 @@ namespace Roguewarts.Abilities
 				return 10000;
 			else
 				return 100;
-		}
+		} 
 
 		public static Vector2 MouseIngamePosition()
 		{

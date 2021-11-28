@@ -341,7 +341,6 @@ namespace Roguewarts
 				Polarizing = "Polarizing",
 				Polarizing_2 = "Polarizing2",
 				Priors = "Priors",
-				RATS = "RATS",
 				RATS_2 = "RATS2",
 				Reinforcements = "Reinforcements",
 				Reinforcements_2 = "Reinforcements2",
