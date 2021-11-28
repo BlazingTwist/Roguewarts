@@ -18,14 +18,10 @@ namespace Roguewarts.Localization
 
 		private LocalizationManager()
 		{
-			IDeserializer deserializer = new DeserializerBuilder().Build();
-			string path = "BepInEx/config/Roguewarts_Traits.yaml";
+			IDeserializer deserializer = new DeserializerBuilder().Build(); 
 
-			using (StreamReader reader = new StreamReader(path))
-			{
-				AbilityLocalization = deserializer.Deserialize<AbilityLocalization>(reader);
-				TraitsLocalization = deserializer.Deserialize<TraitLocalization>(reader);
-			}
+			AbilityLocalization = deserializer.Deserialize<AbilityLocalization>(new StreamReader("BepInEx/config/Roguewarts_Abilities.yaml"));
+			TraitsLocalization = deserializer.Deserialize<TraitLocalization>(new StreamReader("BepInEx/config/Roguewarts_Traits.yaml"));
 		}
 	}
-}
+} 
