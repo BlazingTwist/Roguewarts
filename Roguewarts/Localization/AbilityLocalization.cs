@@ -18,7 +18,7 @@ namespace Roguewarts.Localization
 			string id = typeof(AbilityType).Name;
 			if (!abilities.ContainsKey(id))
 			{
-				Debug.LogWarning("TraitsLocalization did not find Localization for ID: '" + id + "'");
+				Debug.LogWarning("AbilityLocalization did not find Localization for ID: '" + id + "'");
 				return null;
 			}
 			return abilities[id];

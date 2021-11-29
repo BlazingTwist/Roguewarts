@@ -1,0 +1,20 @@
+﻿traits:
+    BlessedStrikes:
+        English:
+            Name: Blessed Strikes
+            Desc: |-
+                - You can hit Ghosts with your Unarmed attacks
+                - Melee damage to all Undead increased 50%
+        Russian: 
+            Name: Blessed Strikes
+            Desc: |-
+                - You can hit Ghosts with your Unarmed attacks
+                - Melee damage to all Undead increased 50%
+
+    RATS_1:
+        English:
+            Name: RATS
+            Desc: |-
+                - Test
+                - Test
+        Russian: ~ 

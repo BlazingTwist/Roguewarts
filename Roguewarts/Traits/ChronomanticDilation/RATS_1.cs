@@ -24,7 +24,7 @@ namespace Roguewarts.Traits.ChronomanticDilation
 							.SetEnabled(true)
 					);
 
-			TraitManager.RegisterTrait<RATS_1>(new TraitInfo(name, traitBuilder)
+			TraitManager.RegisterTrait<RATS_1>(new TraitInfo(RATS_1.name, traitBuilder)
 					.WithUpgrade(typeof(RATS_2))
 			);
 		}
