@@ -222,7 +222,7 @@ namespace Roguewarts.Abilities.Magic
 		}
 		#endregion
 		#region Mechanics
-		public static int GetLuckMultiplier(Agent agent)
+		public static float GetLuckMultiplier(Agent agent)
 		{
 			return agent.specialAbility == cSpecialAbility.ChronomanticDilation && MSA_CD_IsCast(agent)
 					? 2

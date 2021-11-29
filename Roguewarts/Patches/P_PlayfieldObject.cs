@@ -17,11 +17,11 @@ namespace Roguewarts.Patches
 		private static readonly ManualLogSource logger = RWLogger.GetLogger();
 
 		[UsedImplicitly]
-		private static int ApplyLuckBonus(int baseBonus, string luckType, PlayfieldObject playfieldObject)
+		private static float ApplyLuckBonus(float baseBonus, string luckType, PlayfieldObject playfieldObject)
 		{
 			Agent agent = playfieldObject.playfieldObjectAgent;
-			int ratsMultiplier = RATS_1.GetLuckMultiplier(luckType, agent) + RATS_2.GetLuckMultiplier(luckType, agent);
-			int cdMultiplier = ChronomanticDilation.GetLuckMultiplier(agent);
+			float ratsMultiplier = RATS_1.GetLuckMultiplier(luckType, agent) + RATS_2.GetLuckMultiplier(luckType, agent);
+			float cdMultiplier = ChronomanticDilation.GetLuckMultiplier(agent);
 			return baseBonus * ratsMultiplier * cdMultiplier;
 		}
 		
@@ -36,6 +36,7 @@ namespace Roguewarts.Patches
 					expectedMatches: 19,
 					prefixInstructionSequence: new List<CodeInstruction>
 					{
+							new CodeInstruction(OpCodes.Br),
 							new CodeInstruction(OpCodes.Ldc_R4),
 							new CodeInstruction(OpCodes.Stloc_S, 1),
 							new CodeInstruction(OpCodes.Ldc_R4),

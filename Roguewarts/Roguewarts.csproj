@@ -168,6 +168,7 @@
     <Content Include="Libraries\UnityEngine.TextRenderingModule.dll" />
     <Content Include="Libraries\UnityEngine.UI.dll" />
     <Content Include="Libraries\UnityEngine.UIModule.dll" />
+    <Content Include="Localization\Roguewarts_Abilities.yaml" />
     <Content Include="Properties\Resources\ChronomanticDilation.png" />
     <Content Include="Properties\Resources\CryomanticBolt.png" />
     <Content Include="Properties\Resources\ElectromanticDischarge.png" />

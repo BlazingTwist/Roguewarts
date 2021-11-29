@@ -31,7 +31,7 @@ namespace Roguewarts.Traits.ChronomanticDilation
 
 		public override void OnRemoved() { }
 		
-		public static int GetLuckMultiplier(string luckType, Agent agent)
+		public static float GetLuckMultiplier(string luckType, Agent agent)
 		{
 			if (agent.HasTrait<RATS_1>()
 					&& (luckType == "CritChance"

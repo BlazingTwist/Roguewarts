@@ -1,16 +1,13 @@
 ﻿using JetBrains.Annotations;
 using RogueLibsCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+using BepInEx.Logging;
 
 namespace Roguewarts.Localization
 {
 	public class TraitLocalization
 	{
+		private static readonly ManualLogSource logger = RWLogger.GetLogger();
 		[UsedImplicitly] public Dictionary<string, Dictionary<LanguageCode, LocalizedTrait>> traits;
 
 		public Dictionary<LanguageCode, LocalizedTrait> GetLocalization<TraitType>()
@@ -18,7 +15,7 @@ namespace Roguewarts.Localization
 			string id = typeof(TraitType).Name;
 			if (!traits.ContainsKey(id))
 			{
-				Debug.LogWarning("TraitLocalization did not find Localization for ID: '" + id + "'");
+				logger.LogWarning($"TraitLocalization did not find Localization for ID: '{id}'");
 				return null;
 			}
 			return traits[id];
