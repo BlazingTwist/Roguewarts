@@ -106,7 +106,7 @@
     <Compile Include="Extensions\E_TraitUnlock.cs" />
     <Compile Include="Localization\AbilityLocalization.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
-    <Compile Include="Localization\TraitsLocalization.cs" />
+    <Compile Include="Localization\TraitLocalization.cs" />
     <Compile Include="NameManager.cs" />
     <Compile Include="Patches\P_LoadLevel.cs" />
     <Compile Include="Patches\P_PlayfieldObject.cs" />
@@ -136,6 +136,7 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="Documentation\0.1 Scratchpad" />
+    <None Include="Localization\Roguewarts_Traits.yaml" />
     <None Include="packages.config" />
     <None Include="Properties\Resources\ChronomanticDilation.bin" />
     <None Include="Properties\Resources\CryomanticBolt.bin" />
@@ -183,4 +184,22 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set gameDirectory="C:\Program Files (x86)\Steam\steamapps\common\Streets of Rogue\BepInEx\plugins"
+set configDirectory="C:\Program Files (x86)\Steam\steamapps\common\Streets of Rogue\BepInEx\config"
+if exist %25gameDirectory%25 (ECHO "Destination directory found") ELSE (ECHO "Destination directory not found")
+if exist %25configDirectory%25 (ECHO "Config directory found") ELSE (ECHO "Config directory not found")
+
+set dll="Roguewarts.dll"
+set dll2="BTHarmonyUtils.dll"
+set dll3="RogueLibsCore.dll"
+set configTrait = "\..\..\Localization\Roguewarts_Traits.yaml"
+if exist %25dll%25 (ECHO "Mod DLL found") ELSE (ECHO "Mod DLL not found")
+if exist %25gameDirectory%25 copy /y %25dll%25 %25gameDirectory%25
+if exist %25gameDirectory%25 copy /y %25dll2%25 %25gameDirectory%25
+if exist %25gameDirectory%25 copy /y %25dll3%25 %25gameDirectory%25
+if exist %25configDirectory%25 copy /y %25configTrait%25 %25configDirectory%25 
+
+if exist %25gameDirectory%25 Start "" "C:\Program Files (x86)\Steam\steamapps\common\Streets of Rogue\StreetsOfRogue.exe"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

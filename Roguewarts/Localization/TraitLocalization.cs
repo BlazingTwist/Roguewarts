@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Roguewarts.Localization
 {
-	public class TraitsLocalization
+	public class TraitLocalization
 	{
 		[UsedImplicitly] public Dictionary<string, Dictionary<LanguageCode, LocalizedTrait>> traits;
 
@@ -18,7 +18,7 @@ namespace Roguewarts.Localization
 			string id = typeof(TraitType).Name;
 			if (!traits.ContainsKey(id))
 			{
-				Debug.LogWarning("TraitsLocalization did not find Localization for ID: '" + id + "'");
+				Debug.LogWarning("TraitLocalization did not find Localization for ID: '" + id + "'");
 				return null;
 			}
 			return traits[id];
